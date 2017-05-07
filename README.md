@@ -105,3 +105,7 @@ var_dump($result);
 Above example will return 405 METHOD NOT ALLOWED because POST method for this specific API is forbidden.
 
 Function curl_setopt has more options - you can check all options here: https://curl.haxx.se/libcurl/c/curl_easy_setopt.html.
+
+## pecl_http
+
+## Streams / file_get_contents()
