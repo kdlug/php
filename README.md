@@ -1,14 +1,16 @@
 # API
+
+## Sending HTTP requests using PHP
 PHP has three basic ways of communication with API: using curl extension, pecl_http extension or stream mechanism.
 
-## Curl (Client Url Request Library) 
+### Curl (Client Url Request Library) 
 In order to send a request via Curl you have to do the following 4 steps:
 1. Initialization Curl session
 2. Set Curl options
 3. Execute request
 4. Close Curl session
 
-### GET request:
+#### GET request:
 
 ```php
 $url = 'http://swapi.co/api/people/';
@@ -42,7 +44,7 @@ curl_close($curl);
 var_dump($result);
 ```
 
-### cURL init
+#### cURL init
 Function curl_init has one optional parameter - if you pass a string to it it will be automatically used as URL address. It's equivalent to `curl_setopt($curl, CURLOPT_URL, $url)`.
 ```php
 $url = 'http://swapi.co/api/people/';
@@ -55,7 +57,7 @@ curl_close($curl);
 
 var_dump($result);
 ```
-### Headers
+#### Headers
 Header Content-Type is used to determine data format of request body. Thanks to it the recipient knows how to decode received content. The similar header Accept is used to determine by client what kind of content is accepted for the response. To include headers in response you can set CURLOPT_HEADER option to 1. Using cURL we can simply add these headers to the request:
 ```php
 $url = 'http://swapi.co/api/people/';
@@ -77,7 +79,7 @@ $result = curl_exec($curl);
 curl_close($curl);
 var_dump($result);
 ```
-### POST request
+#### POST request
 To send a simple POST request we need to set 2 options: 
 - CURLOPT_POST with value 1 
 - CURLOPT_POSTFIELDS with an array of fields which have to be send
@@ -110,7 +112,7 @@ Above example will return 405 METHOD NOT ALLOWED because POST method for this sp
 
 Function curl_setopt has more options - you can check all options here: https://curl.haxx.se/libcurl/c/curl_easy_setopt.html.
 
-### Multiple options
+#### Multiple options
 To set multiple options for cURL transfer, instead of repetitively calling curl_setopt(), it's convinient to use ``bool curl_setopt_array (resource $curl , array $options)``. Function has two parameters: curl resource and options array and returnts true if all options were successfuly set, in other case it returns false.
 
 ```php
@@ -127,8 +129,8 @@ curl_close($curl);
 var_dump($result);
 ```
 
-## pecl_http
-### GET request
+### pecl_http
+#### GET request
 ```php
 <?php
 $url = 'http://swapi.co/api/people/';
@@ -147,7 +149,7 @@ var_dump($response);
 ?>
 ```
 
-### POST request
+#### POST request
 ```php
 <?php
 $url = 'http://swapi.co/api/people/';
@@ -169,10 +171,10 @@ echo '<pre>';
 var_dump($response);
 ?>
 ```
-## Streams / file_get_contents()
+### Streams / file_get_contents()
 file_get_contents() is used to read the contents of a file into a string. The allow_url_fopen directive is disabled by default, because of security reasons. If PHP option allow_url_fopen is set to 1, we can open remote files as if they are local files - in other words we can use url to get remote content.
 
-### GET request
+#### GET request
 ```php
 <?php
 // check if allow_url_fopen is enabled
@@ -189,7 +191,7 @@ echo '<pre>';
 var_dump($result);
 ?>
 ```
-### POST request
+#### POST request
 POST request is a little bit more complicated - we have to create a stream context first, where we define POST method and headers and content.
 ```php
 <?php
