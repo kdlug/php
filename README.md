@@ -8,7 +8,7 @@ In order to send a request via Curl you have to do the following 4 steps:
 3. Execute request
 4. Close Curl session
 
-Basic GET request:
+### GET request:
 
 ```php
 $url = 'http://swapi.co/api/people/';
@@ -41,6 +41,23 @@ curl_close($curl);
 // print result
 var_dump($result);
 ```
+### Multiple options
+To set multiple options for cURL transfer, instead of repetitively calling curl_setopt(), it's convinient to use ``bool curl_setopt_array (resource $curl , array $options)``. Function has two parameters: curl resource and options array and returnts true if all options were successfuly set, in other case it returns false.
+
+```php
+$options = [
+  CURLOPT_URL => 'http://swapi.co/api/people/',
+  CURLOPT_RETURNTRANSFER => 1
+];
+
+$curl = curl_init();
+curl_setopt_array($curl, $options);
+$result = curl_exec($curl);
+curl_close($curl);
+
+var_dump($result);
+```
+### cURL init
 Function curl_init has one optional parameter - if you pass a string to it it will be automatically used as URL address. It's equivalent to `curl_setopt($curl, CURLOPT_URL, $url)`.
 ```php
 $url = 'http://swapi.co/api/people/';
@@ -53,6 +70,7 @@ curl_close($curl);
 
 var_dump($result);
 ```
+### Headers
 Header Content-Type is used to determine data format of request body. Thanks to it the recipient knows how to decode received content. The similar header Accept is used to determine by client what kind of content is accepted for the response. To include headers in response you can set CURLOPT_HEADER option to 1. Using cURL we can simply add these headers to the request:
 ```php
 $url = 'http://swapi.co/api/people/';
@@ -74,6 +92,7 @@ $result = curl_exec($curl);
 curl_close($curl);
 var_dump($result);
 ```
+### POST request
 To send a simple POST request we need to set 2 options: 
 - CURLOPT_POST with value 1 
 - CURLOPT_POSTFIELDS with an array of fields which have to be send
@@ -105,6 +124,7 @@ var_dump($result);
 Above example will return 405 METHOD NOT ALLOWED because POST method for this specific API is forbidden.
 
 Function curl_setopt has more options - you can check all options here: https://curl.haxx.se/libcurl/c/curl_easy_setopt.html.
+
 
 ## pecl_http
 
