@@ -170,3 +170,55 @@ var_dump($response);
 ?>
 ```
 ## Streams / file_get_contents()
+file_get_contents() is used to read the contents of a file into a string. The allow_url_fopen directive is disabled by default, because of security reasons. If PHP option allow_url_fopen is set to 1, we can open remote files as if they are local files - in other words we can use url to get remote content.
+
+### GET request
+```php
+<?php
+// check if allow_url_fopen is enabled
+$config = ini_get('allow_url_fopen');
+
+if (!$config) {
+    echo "Option allow)url_fopen is disabled";
+}
+
+$url = 'http://swapi.co/api/people/';
+$result = file_get_contents($url);
+
+echo '<pre>';
+var_dump($result);
+?>
+```
+### POST request
+POST request is a little bit more complicated - we have to create a stream context first, where we define POST method and headers and content.
+```php
+<?php
+// check if allow_url_fopen is enabled
+$config = ini_get('allow_url_fopen');
+
+if (!$config) {
+    echo "Option allow)url_fopen is disabled";
+}
+
+$url = 'http://swapi.co/api/people/';
+$fields = [ 'name' => 'John', 'surname' => 'Doe'];
+
+$options = [
+    'http'  => [
+        'method' => 'POST',
+        'header' => [
+            'Accept'=>'application/json'
+        ],
+        'content' => http_build_query($fields)
+    ]
+];
+// create context
+$context  = stream_context_create($opts);
+
+// pass context
+$result = file_get_contents($url, false, $context);
+
+echo '<pre>';
+var_dump($result);
+```
+> Read more http://php.net/manual/en/function.file-get-contents.php 
