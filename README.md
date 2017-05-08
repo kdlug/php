@@ -179,7 +179,7 @@ file_get_contents() is used to read the contents of a file into a string. The al
 $config = ini_get('allow_url_fopen');
 
 if (!$config) {
-    echo "Option allow)url_fopen is disabled";
+    echo "Option allow_url_fopen is disabled";
 }
 
 $url = 'http://swapi.co/api/people/';
@@ -197,7 +197,7 @@ POST request is a little bit more complicated - we have to create a stream conte
 $config = ini_get('allow_url_fopen');
 
 if (!$config) {
-    echo "Option allow)url_fopen is disabled";
+    echo "Option allow_url_fopen is disabled";
 }
 
 $url = 'http://swapi.co/api/people/';
