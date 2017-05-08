@@ -128,5 +128,25 @@ var_dump($result);
 ```
 
 ## pecl_http
+### GET request
+```php
+<?php
+$url = 'http://swapi.co/api/people/';
+
+// create new request object, set url and method
+$request = new HTTPRequest($url, HttpRequest::METH_GET);
+
+//send request
+$request->send();
+
+// get ersult of request
+$response = $request->getResponseBody();
+
+echo '<pre>';
+var_dump($response);
+?>
+```
+
+### POST request
 
 ## Streams / file_get_contents()
