@@ -139,7 +139,7 @@ $request = new HTTPRequest($url, HttpRequest::METH_GET);
 //send request
 $request->send();
 
-// get ersult of request
+// get result of request
 $response = $request->getResponseBody();
 
 echo '<pre>';
@@ -148,5 +148,25 @@ var_dump($response);
 ```
 
 ### POST request
+```php
+<?php
+$url = 'http://swapi.co/api/people/';
+$fields = [ 'name' => 'John', 'surname' => 'Doe'];
 
+$request = new HTTPRequest($url, HttpRequest::METH_POST);
+$request->setPostFields($fields);
+
+// set some headers
+$request->setHeaders([
+    'Content-Type: application/json',
+    'Accept: application/json'  
+]);
+
+$request->send();
+$response = $request->getResponseBody();
+
+echo '<pre>';
+var_dump($response);
+?>
+```
 ## Streams / file_get_contents()
