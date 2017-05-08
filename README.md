@@ -41,22 +41,7 @@ curl_close($curl);
 // print result
 var_dump($result);
 ```
-### Multiple options
-To set multiple options for cURL transfer, instead of repetitively calling curl_setopt(), it's convinient to use ``bool curl_setopt_array (resource $curl , array $options)``. Function has two parameters: curl resource and options array and returnts true if all options were successfuly set, in other case it returns false.
 
-```php
-$options = [
-  CURLOPT_URL => 'http://swapi.co/api/people/',
-  CURLOPT_RETURNTRANSFER => 1
-];
-
-$curl = curl_init();
-curl_setopt_array($curl, $options);
-$result = curl_exec($curl);
-curl_close($curl);
-
-var_dump($result);
-```
 ### cURL init
 Function curl_init has one optional parameter - if you pass a string to it it will be automatically used as URL address. It's equivalent to `curl_setopt($curl, CURLOPT_URL, $url)`.
 ```php
@@ -125,6 +110,22 @@ Above example will return 405 METHOD NOT ALLOWED because POST method for this sp
 
 Function curl_setopt has more options - you can check all options here: https://curl.haxx.se/libcurl/c/curl_easy_setopt.html.
 
+### Multiple options
+To set multiple options for cURL transfer, instead of repetitively calling curl_setopt(), it's convinient to use ``bool curl_setopt_array (resource $curl , array $options)``. Function has two parameters: curl resource and options array and returnts true if all options were successfuly set, in other case it returns false.
+
+```php
+$options = [
+  CURLOPT_URL => 'http://swapi.co/api/people/',
+  CURLOPT_RETURNTRANSFER => 1
+];
+
+$curl = curl_init();
+curl_setopt_array($curl, $options);
+$result = curl_exec($curl);
+curl_close($curl);
+
+var_dump($result);
+```
 
 ## pecl_http
 
