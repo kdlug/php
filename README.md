@@ -1,8 +1,7 @@
 # API
 
 ## Sending HTTP requests using PHP
-PHP has three basic ways of communication with API: using curl extension, pecl_http extension or stream mechanism.
-
+PHP has three basic ways of communication with API: using curl, pecl_http or file_get_content().
 ### Curl (Client Url Request Library) 
 In order to send a request via Curl you have to do the following 4 steps:
 1. Initialization Curl session
@@ -171,7 +170,7 @@ echo '<pre>';
 var_dump($response);
 ?>
 ```
-### Streams / file_get_contents()
+### file_get_contents()
 file_get_contents() is used to read the contents of a file into a string. The allow_url_fopen directive is disabled by default, because of security reasons. If PHP option allow_url_fopen is set to 1, we can open remote files as if they are local files - in other words we can use url to get remote content.
 
 #### GET request
@@ -224,3 +223,13 @@ echo '<pre>';
 var_dump($result);
 ```
 > Read more http://php.net/manual/en/function.file-get-contents.php 
+
+## HTTP Methods
+## HTTP Headers
+## Cookies
+## XML / JSON format
+## RPC / SOAP
+## REST
+## Error Handling
+## Debugging
+## Documentation
