@@ -225,8 +225,10 @@ var_dump($result);
 > Read more http://php.net/manual/en/function.file-get-contents.php 
 
 ## HTTP Methods
+In PHP we can determine which method was used in a request using superglobal `$_SERVER['REQUEST_METHOD']`.
+
 ### GET
-In GET requests data is sent as Query string (key/value pairs) in the URL: 
+GET requests sends query string (key/value pairs) in the URL: 
 f.ex. http://example.comt/form.php?key1=value1&key2=value2
 
 A few notes about GET requests:
@@ -235,6 +237,9 @@ A few notes about GET requests:
 - can be bookmarked
 - should never be used when dealing with sensitive data
 - have length restrictions
+- should be used only to get data from the server (search)
+
+In PHP there is superglobal variable `$_GET` which contains GET requests.
 
 #### Send querystring via GET using cURL
 ```php
@@ -277,12 +282,50 @@ var_dump($result);
 ?>
 ```
 ### POST
-In POST requests data is sent in content of a request (not in the URL like in GET) and Content-Type header determines type of sent data. 
+In POST requests data is sent in content/body of a HTTP request (not in the URL like in GET) and Content-Type header determines type of sent data. 
 Example od the post request was mentioned here: https://github.com/kdlug/php/blob/master/README.md#post-request
 Content of this request looks like the following
 ```
 RAW BODY
 {"name":"John","surname":"Doe"}
+```
+A few notes about POST requests:
+- never cached
+- don't remain in the browser history
+- cannot be bookmarked
+- no restrictions on data length
+- used for changing data on the server f.ex. inserting / updating object
+
+In PHP there is superglobal variable `$_POST` which contains POST requests.
+### DELETE
+Used for deleting objects on the server.
+
+### PUT
+Similar to POST, becase it's requests can contain data in various formats. 
+In php there is no superglobal for retreive PUT data - do get data from PUT we can use stream php://input.
+```php
+if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
+    $data = [];
+    // read raw POST data / query string
+    $raw = file_get_contents("php://input");
+    // encode query string to $data array
+    parse_str($raw, $data);
+}
+```
+> Read more http://php.net/manual/en/function.parse-str.php
+
+#### cURL
+```php
+$url = 'http://requestb.in/1hq5frz1';
+
+$curl = curl_init($url);
+
+// set HTTP method to DELETE
+curl_setopt($curl, CURLOPT_CUSTOMREQUEST, "DELETE");
+$result = curl_exec($curl);
+curl_close($curl);
+// print result
+var_dump($result);
 ```
 ## HTTP Headers
 ## Cookies
