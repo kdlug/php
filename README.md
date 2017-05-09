@@ -302,6 +302,8 @@ Used for deleting objects on the server.
 
 ### PUT
 Similar to POST, becase it's requests can contain data in various formats. 
+
+#### Retreive PUT request
 In php there is no superglobal for retreive PUT data - do get data from PUT we can use stream php://input.
 ```php
 if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
@@ -314,7 +316,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'PUT') {
 ```
 > Read more http://php.net/manual/en/function.parse-str.php
 
-#### cURL
+#### Send PUT request via cURL
 ```php
 $url = 'http://requestb.in/1hq5frz1';
 
