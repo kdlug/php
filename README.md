@@ -329,6 +329,9 @@ curl_close($curl);
 // print result
 var_dump($result);
 ```
+#### Send PUT request via pecl_http
+#### Send PUT request via file_get_contents
+
 ## HTTP Headers
 ## Cookies
 ## XML / JSON format
