@@ -201,7 +201,7 @@ if (!$config) {
     echo "Option allow_url_fopen is disabled";
 }
 
-$url = 'http://swapi.co/api/people/';
+$url = 'http://requestb.in/1hq5frz1';
 $fields = [ 'name' => 'John', 'surname' => 'Doe'];
 
 $options = [
@@ -278,6 +278,12 @@ var_dump($result);
 ```
 ### POST
 In POST requests data is sent in content of a request (not in the URL like in GET) and Content-Type header determines type of sent data. 
+Example od the post request was mentioned here: https://github.com/kdlug/php/blob/master/README.md#post-request
+Content of this request looks like the following
+```
+RAW BODY
+{"name":"John","surname":"Doe"}
+```
 ## HTTP Headers
 ## Cookies
 ## XML / JSON format
