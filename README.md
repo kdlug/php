@@ -225,6 +225,59 @@ var_dump($result);
 > Read more http://php.net/manual/en/function.file-get-contents.php 
 
 ## HTTP Methods
+### GET
+In GET requests data is sent as Query string (key/value pairs) in the URL: 
+f.ex. http://example.comt/form.php?key1=value1&key2=value2
+
+A few notes about GET requests:
+- can be cached
+- remain in the browser history
+- can be bookmarked
+- should never be used when dealing with sensitive data
+- have length restrictions
+
+#### Send querystring via GET using cURL
+```php
+$url = 'http://requestb.in/1hq5frz1';
+$data = [
+  'key1' => 'value1',
+  'key2' => 'value2'
+];
+$address = $url . '?' . http_build_query($data);
+
+$curl = curl_init($address);
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+$result = curl_exec($curl);
+curl_close($curl);
+
+// print result
+var_dump($result);
+```
+We can check query string on the requestb page, it looks like this:
+```
+QUERYSTRING
+key2: value2
+key1: value1
+```
+#### Send querystring via GET using file_get_contents
+```php
+<?php
+$url = 'http://requestb.in/1hq5frz1';
+$data = [
+  'key1' => 'value1',
+  'key2' => 'value2'
+];
+
+$address = $url . '?' . http_build_query($data);
+
+$result = file_get_contents($address);
+
+echo '<pre>';
+var_dump($result);
+?>
+```
+### POST
+In POST requests data is sent in content of a request (not in the URL like in GET) and Content-Type header determines type of sent data. 
 ## HTTP Headers
 ## Cookies
 ## XML / JSON format
