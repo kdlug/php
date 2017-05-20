@@ -336,7 +336,9 @@ var_dump($result);
 HTTP header fields provide information about the request or response, or about the object sent in the message body.
 Header fields are colon-separated name-value pairs in text format, terminated by a carriage return (CR) and line feed (LF) character sequence. The end of the header section is indicated by an empty field. 
 A lot of headers occur both in requests and responses (entity headers), but some of them are specific only for requests or responses. 
-### Example request headers
+
+Example response headers
+
 ```curl -I https://time.com/```
 ```
 HTTP/1.1 200 OK
@@ -354,9 +356,90 @@ X-Cache: Miss from cloudfront
 Via: 1.1 66ee7af4768b1b41e7f77d2e5b20df5c.cloudfront.net (CloudFront)
 X-Amz-Cf-Id: Iu496Id5-2eJJkRYoMrPqVCToYzuJvEtlCvLLcwb_AeDxKdZQ91LVA
 ```
+Example request headers
+```
+GET / HTTP/1.1
+Accept-Encoding: gzip
+Host: requestb.in
+Accept: text/html, application/xhtml+xml, image/jxr, */*
+Accept-Language: pl
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.79 Safari/537.36 Edge/14.14393
+Via: 1.1 vegur
+```
  
 ### Most used headers
 #### User Agent
+Shows information about the client which sent a request.
+F.ex.:
+```
+User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.133 Safari/537.36
+```
+We shouldn't trust User Agent header, because it can be simply modified via curl:
+```
+curl -H 'User-Agent: Custom Client' https://requestb.in/zx5pgqzx
+```
+In PHP we can set User-Agent header like the following:
+```php
+$url = 'https://requestb.in/zx5pgqzx';
+
+$curl = curl_init($url);
+
+curl_setopt($curl, CURLOPT_HEADER, 1); 
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+// set headers in array
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+  'User-Agent: Sample custom header'
+]);
+
+$result = curl_exec($curl);
+curl_close($curl);
+var_dump($result);
+```
+
+All headers in PHP we can find in $_SERVER array. User-Agent header can be checked in $_SERVER['HTTP_USER_AGENT']
+
+#### Content Type
+The Content-Type entity header field indicates format (media type) of data sent/returned in requests (POST, PUT)/responses.
+
+#### Accept
+Request header which can be used by the client to specify expected format of data for the response.
+For instance Chrome browser can handle the following media types: 
+```Accept: text/html, application/xhtml+xml, image/jxr, */*```
+If response will be returned in one of above formats, client can regognize it. */* at the end means that Chrome browser supposedly
+can handle every type of content.
+There are a few headers which, similar to accept, are used for content negotiation: Accept-Charset, Accept-Encoding, Accept-Language
+
+Example PHP classes for processing request header can be found here: 
+https://github.com/adoy/Accept-Header-Parser/blob/master/AcceptHeader.php 
+https://github.com/ramsey/mimeparse-php/blob/master/src/Mimeparse.php. 
+A nice article about the importance of Accept header analysis: http://shiflett.org/blog/2011/may/the-accept-header. 
+
+Setting Accept header via curl:
+```
+curl -H "Accept: text/html;q=0.1,application-json" http://example.com
+```
+
+PHP:
+```php
+$url = 'https://requestb.in/zx5pgqzx';
+
+$curl = curl_init($url);
+
+curl_setopt($curl, CURLOPT_HEADER, 1); 
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+// set headers in array
+curl_setopt($curl, CURLOPT_HTTPHEADER, [
+  'Accept: text/html;q=0.1,application-json'
+]);
+
+$result = curl_exec($curl);
+curl_close($curl);
+var_dump($result);
+```
+
+#### Authorization
 
 ## Cookies
 ## XML / JSON format
@@ -365,3 +448,4 @@ X-Amz-Cf-Id: Iu496Id5-2eJJkRYoMrPqVCToYzuJvEtlCvLLcwb_AeDxKdZQ91LVA
 ## Error Handling
 ## Debugging
 ## Documentation
+https://any-api.com/
