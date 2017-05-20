@@ -438,10 +438,18 @@ $result = curl_exec($curl);
 curl_close($curl);
 var_dump($result);
 ```
+It's a good practice to prepare API which serves a few types of content f.ex. JSON and XML.
+
 
 #### Authorization
+Basic / OAuth
 
 ## Cookies
+
+## Authentication
+Cookies / JWT
+https://auth0.com/blog/cookies-vs-tokens-definitive-guide/
+
 ## XML / JSON format
 ## RPC / SOAP
 ## REST
