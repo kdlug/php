@@ -333,6 +333,31 @@ var_dump($result);
 #### Send PUT request via file_get_contents
 
 ## HTTP Headers
+HTTP header fields provide information about the request or response, or about the object sent in the message body.
+Header fields are colon-separated name-value pairs in text format, terminated by a carriage return (CR) and line feed (LF) character sequence. The end of the header section is indicated by an empty field. 
+A lot of headers occur both in requests and responses (entity headers), but some of them are specific only for requests or responses. 
+### Example request headers
+```curl -I https://time.com/```
+```
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Connection: keep-alive
+Server: nginx
+Date: Sat, 20 May 2017 18:03:17 GMT
+Vary: Accept-Encoding
+Vary: Cookie
+X-hacker: If you're reading this, you should visit automattic.com/jobs and apply to join the fun, mention this header.
+X-UA-Compatible: IE=edge,chrome=1
+Link: <http://ti.me/nACNOw>; rel=shortlink
+X-ac: 4.fra _dfw
+X-Cache: Miss from cloudfront
+Via: 1.1 66ee7af4768b1b41e7f77d2e5b20df5c.cloudfront.net (CloudFront)
+X-Amz-Cf-Id: Iu496Id5-2eJJkRYoMrPqVCToYzuJvEtlCvLLcwb_AeDxKdZQ91LVA
+```
+ 
+### Most used headers
+#### User Agent
+
 ## Cookies
 ## XML / JSON format
 ## RPC / SOAP
