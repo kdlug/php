@@ -442,7 +442,41 @@ It's a good practice to prepare API which serves a few types of content f.ex. JS
 
 
 #### Authorization
-Basic / OAuth
+The Authorization request-header field value consists of credentials containing the authentication information of the user agent.
+
+##### Basic
+Basic authorization scheme:
+- Authorization parameter is a string username:password
+- String is enoded in Base64
+- Encoded string (token) is sent by client in Authorization header:
+```
+Authorization: Basic dGVzdDpwYXNzMTIz
+```
+The value decodes user:pass123.
+
+- Token is a text an can be easily decoded, so it's not safe to send it via HTTP, use HTTPS instead. 
+In PHP we can send the same Authorization header in the following way:
+```php
+$url = 'https://requestb.in/zx5pgqzx';
+
+$curl = curl_init($url);
+
+// set auth Basic and pass user and password
+curl_setopt($curl, CURLOPT_HTTPAUTH, CURLAUTH_BASIC); 
+curl_setopt($curl, CURLOPT_USERPWD, 'user:pass123'); 
+
+curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+
+$result = curl_exec($curl);
+curl_close($curl);
+var_dump($result);
+```
+
+To get user and password from the request we can use $_SERVER[] suberglobal array:
+```php
+$_SERVER['PHP_AUTH_USER']
+$_SERVER['PHP_AUTH_PASSWORD']
+```
 
 ## Cookies
 
