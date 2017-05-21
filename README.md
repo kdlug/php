@@ -335,7 +335,7 @@ var_dump($result);
 ## HTTP Headers
 HTTP header fields provide information about the request or response, or about the object sent in the message body.
 Header fields are colon-separated name-value pairs in text format, terminated by a carriage return (CR) and line feed (LF) character sequence. The end of the header section is indicated by an empty field. 
-A lot of headers occur both in requests and responses (entity headers), but some of them are specific only for requests or responses. 
+A lot of headers occur both in requests and responses, but some of them are specific only for requests or responses. 
 
 Example response headers
 
@@ -366,7 +366,16 @@ Accept-Language: pl
 User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/51.0.2704.79 Safari/537.36 Edge/14.14393
 Via: 1.1 vegur
 ```
- 
+There are four types of HTTP message headers:
+
+- General-header: These header fields have general applicability for both request and response messages.
+
+- Client Request-header: These header fields have applicability only for request messages.
+
+- Server Response-header: These header fields have applicability only for response messages.
+
+- Entity-header: These header fields define meta information about the entity-body or, if no body is present, about the resource identified by the request.
+
 ### Most used headers
 #### User Agent
 Shows information about the client which sent a request.
@@ -400,7 +409,7 @@ var_dump($result);
 All headers in PHP we can find in $_SERVER array. User-Agent header can be checked in $_SERVER['HTTP_USER_AGENT']
 
 #### Content Type
-The Content-Type entity header field indicates format (media type) of data sent/returned in requests (POST, PUT)/responses.
+The Content-Type entity header field indicates format (media type) of data sent in body of the requests (POST, PUT) or media type of data for GET requests.
 
 #### Accept
 Request header which can be used by the client to specify expected format of data for the response.
@@ -455,6 +464,7 @@ Authorization: Basic dGVzdDpwYXNzMTIz
 The value decodes user:pass123.
 
 - Token is a text an can be easily decoded, so it's not safe to send it via HTTP, use HTTPS instead. 
+
 In PHP we can send the same Authorization header in the following way:
 ```php
 $url = 'https://requestb.in/zx5pgqzx';
@@ -477,6 +487,9 @@ To get user and password from the request we can use $_SERVER[] suberglobal arra
 $_SERVER['PHP_AUTH_USER']
 $_SERVER['PHP_AUTH_PASSWORD']
 ```
+##### OAuth
+### Custom Headers
+Custom headers are started with the X- prefix, f.ex: X-Cache, X-Varnish in previous examples.
 
 ## Cookies
 
