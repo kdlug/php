@@ -15,22 +15,6 @@ The first line of the HTTP request is called the request line and consists of 3 
 The request contains HTTP headers as "Name: Value" pairs in each line. Most of headers are optional, except Host header, which defines address of the resource:
 - Host: example.com
 
-If we send a form using GET method:
-
-```php
-<form method="GET" action="/test">
-     Name: <input type="text" name="name" />
-     Surame: <input type="text" name="surname" />
-     <input type="submit" name="action" value="Send" />
-</form>
-```
-
-Each form input will be added into the query string, so the request line will look like this:
-
-```php
-GET /test?name=John&surname=Doe&action=Send HTTP/1.1
-```
-
 ## Sending HTTP requests using PHP
 PHP has three basic ways of communication with API: using curl, pecl_http or file_get_content().
 ### Curl (Client Url Request Library) 
@@ -258,8 +242,25 @@ var_dump($result);
 In PHP we can determine which method was used in a request using superglobal `$_SERVER['REQUEST_METHOD']`.
 
 ### GET
+
 GET requests sends query string (key/value pairs) in the URL: 
 f.ex. http://example.comt/form.php?key1=value1&key2=value2
+
+If we send a form using GET method:
+
+```php
+<form method="GET" action="/test">
+     Name: <input type="text" name="name" />
+     Surame: <input type="text" name="surname" />
+     <input type="submit" name="action" value="Send" />
+</form>
+```
+
+Each form input will be added into the query string, so the request line will look like this:
+
+```php
+GET /test?name=John&surname=Doe&action=Send HTTP/1.1
+```
 
 A few notes about GET requests:
 - can be cached
