@@ -256,10 +256,11 @@ If we send a form using GET method:
 </form>
 ```
 
-Each form input will be added into the query string, so the request line will look like this:
+Each form input will be added into the query string, so the request will look like this:
 
 ```php
 GET /test?name=John&surname=Doe&action=Send HTTP/1.1
+Host: example.com
 ```
 
 A few notes about GET requests:
@@ -320,6 +321,26 @@ Content of this request looks like the following
 RAW BODY
 {"name":"John","surname":"Doe"}
 ```
+```php
+If we send a form using POST method:
+<form method="POST" action="/test">
+ 
+Name: <input type="text" name="name" />
+Surname: <input type="text" name="surname" />
+ 
+<input type="submit" name="action" value="Send" />
+ 
+</form>
+```
+Each form input will be added into to the request body, so the request will look like this:
+
+```php
+POST /test?name=John&surname=Doe&action=Send HTTP/1.1
+Host: example.com
+
+name=John&surname=Doe&action=Send
+```
+
 A few notes about POST requests:
 - never cached
 - don't remain in the browser history
