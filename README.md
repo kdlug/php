@@ -464,9 +464,13 @@ In PHP there are two methods to get headers:
 ### Most used headers
 
 #### Host
-Request header containig host name, including the domain and the subdomain.
+```php
+Host: example.com
+```
 
-In PHP, it can be retreived by `$_SERVER['HTTP_HOST']` or `$_SERVER['SERVER_NAME']`.
+A request header containig host name, including the domain and the subdomain.
+
+All headers in PHP we can find in $_SERVER array. Host header can be retreived by `$_SERVER['HTTP_HOST']` or `$_SERVER['SERVER_NAME']`.
 
 #### User Agent
 Shows information about the client which sent a request.
@@ -497,7 +501,7 @@ curl_close($curl);
 var_dump($result);
 ```
 
-All headers in PHP we can find in $_SERVER array. User-Agent header can be checked in $_SERVER['HTTP_USER_AGENT']
+User-Agent header can be checked in $_SERVER['HTTP_USER_AGENT']
 
 #### Content Type
 The Content-Type entity header field indicates format (media type) of data sent in body of the requests (POST, PUT) or media type of data for GET requests.
@@ -509,7 +513,9 @@ For instance Chrome browser can handle the following media types:
 If response will be returned in one of above formats, client can regognize it. */* at the end means that Chrome browser supposedly
 can handle every type of content.
 There are a few headers which, similar to accept, are used for content negotiation: Accept-Charset, Accept-Encoding, Accept-Language
-
+```php
+Accept-Encoding: gzip,deflate
+```
 Example PHP classes for processing request header can be found here: 
 https://github.com/adoy/Accept-Header-Parser/blob/master/AcceptHeader.php 
 https://github.com/ramsey/mimeparse-php/blob/master/src/Mimeparse.php. 
@@ -549,7 +555,7 @@ Basic authorization scheme:
 - Authorization parameter is a string username:password
 - String is enoded in Base64
 - Encoded string (token) is sent by client in Authorization header:
-```
+```php
 Authorization: Basic dGVzdDpwYXNzMTIz
 ```
 The value decodes user:pass123.
