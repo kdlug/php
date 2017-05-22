@@ -462,6 +462,12 @@ In PHP there are two methods to get headers:
 - `headers_list()` gets the response headers.
 
 ### Most used headers
+
+#### Host
+Request header containig host name, including the domain and the subdomain.
+
+In PHP, it can be retreived by `$_SERVER['HTTP_HOST']` or `$_SERVER['SERVER_NAME']`.
+
 #### User Agent
 Shows information about the client which sent a request.
 F.ex.:
