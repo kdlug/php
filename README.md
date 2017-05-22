@@ -1,12 +1,22 @@
 # API
-## HTTP Headers
+## HTTP message
+Each request/response message consists of:
+- request line
+- headers
+- an empty line
+- message body (optional)
+```sh
+GET / HTTP/1.1     ==> request line
+Host: example.com  ==> headers
+                   ==> empty line <CR><LF>, without other whitespaces            
+message body       ==> body
+```
 
 The simpliest GET request can look like this:
 ```sh
 GET / HTTP/1.1
 Host: example.com
 ```
-Each request consists of request line, headers
 The first line of the HTTP request is called the request line and consists of 3 parts:
 - request method - GET in this case
 - path: /
