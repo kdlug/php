@@ -11,19 +11,34 @@ Host: example.com  ==> headers
                    ==> empty line <CR><LF>, without other whitespaces            
 message body       ==> body
 ```
-
+### Request message
 The simpliest GET request can look like this:
 ```sh
 GET / HTTP/1.1
 Host: example.com
 ```
 The first line of the HTTP request is called the request line and consists of 3 parts:
-- request method - GET in this case
+- request method: GET
 - path: /
 - protocol: HTTP/1.1
 
 The request contains HTTP headers as "Name: Value" pairs in each line. Most of headers are optional, except Host header, which defines address of the resource:
 - Host: example.com
+
+### Response message
+```php
+HTTP/1.1 200 OK
+Content-Type: text/html; charset=UTF-8
+Content-Encoding: UTF-8
+Content-Length: 12
+Connection: close
+
+Message body
+```
+The first line of the HTTP request is called the status line and includes:
+- protocol: HTTP/1.1
+- status code: 200 
+- status message: OK
 
 ## Sending HTTP requests using PHP
 PHP has three basic ways of communication with API: using curl, pecl_http or file_get_content().
