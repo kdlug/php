@@ -584,7 +584,13 @@ To get user and password from the request we can use $_SERVER[] suberglobal arra
 $_SERVER['PHP_AUTH_USER']
 $_SERVER['PHP_AUTH_PASSWORD']
 ```
-##### OAuth
+##### Bearer
+```php
+Authorization: Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiYWRtaW4iOnRydWUsImp0aSI6IjNiZGRhMDYyLWI1Y2YtNDI0MC1iZGE3LTU4MTg3NmY2OGE4ZSIsImlhdCI6MTQ5NTQ4MTU5NSwiZXhwIjoxNDk1NDg1MTk1fQ.TcGlwC5Q32TT61hb_tL8H2eMl13kevHYdl7Ngb-bM5o
+```
+Tokens are usually associated with OAuth (Authorization Framework). JSON Web Token (JWT) is an open standard for creating access tokens.
+> Read more: https://www.jsonwebtoken.io/ https://jwt.io/
+
 ### Custom Headers
 Custom headers are started with the X- prefix, f.ex: X-Cache, X-Varnish in previous examples.
 
