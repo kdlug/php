@@ -323,6 +323,10 @@ echo '<pre>';
 var_dump($result);
 ?>
 ```
+
+### HEAD
+HEAD is used to retrieve header information. Basically is identical to GET, except the server does not return the content in the HTTP response. When you send a HEAD request, it means that you are only interested in the response code and the HTTP headers, not the document itself.
+
 ### POST
 In POST requests data is sent in content/body of a HTTP request (not in the URL like in GET) and Content-Type header determines type of sent data. 
 Example od the post request was mentioned here: https://github.com/kdlug/php/blob/master/README.md#post-request
