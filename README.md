@@ -1,4 +1,35 @@
 # API
+## HTTP Headers
+
+The simpliest GET request can look like this:
+```sh
+GET / HTTP/1.1
+Host: example.com
+```
+Each request consists of request line, headers
+The first line of the HTTP request is called the request line and consists of 3 parts:
+- request method - GET in this case
+- path: /
+- protocol: HTTP/1.1
+
+The request contains HTTP headers as "Name: Value" pairs in each line. Most of headers are optional, except Host header, which defines address of the resource:
+- Host: example.com
+
+If we send a form using GET method:
+
+```php
+<form method="GET" action="/test">
+     Name: <input type="text" name="name" />
+     Surame: <input type="text" name="surname" />
+     <input type="submit" name="action" value="Send" />
+</form>
+```
+
+Each form input will be added into the query string, so the request line will look like this:
+
+```php
+GET /test?name=John&surname=Doe&action=Send HTTP/1.1
+```
 
 ## Sending HTTP requests using PHP
 PHP has three basic ways of communication with API: using curl, pecl_http or file_get_content().
@@ -10,7 +41,6 @@ In order to send a request via Curl you have to do the following 4 steps:
 4. Close Curl session
 
 #### GET request:
-
 ```php
 $url = 'http://swapi.co/api/people/';
 
@@ -375,6 +405,10 @@ There are four types of HTTP message headers:
 - Server Response-header: These header fields have applicability only for response messages.
 
 - Entity-header: These header fields define meta information about the entity-body or, if no body is present, about the resource identified by the request.
+
+In PHP there are two methods to get headers:
+- `getallheaders()` gets the request headers. You can also use the $_SERVER array.  
+- `headers_list()` gets the response headers.
 
 ### Most used headers
 #### User Agent
