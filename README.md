@@ -18,7 +18,7 @@ GET / HTTP/1.1
 Host: example.com
 ```
 The first line of the HTTP request is called the request line and consists of 3 parts:
-- request method: GET
+- request method: GET (can be POST, PUT, DELETE etc.)
 - path: /
 - protocol: HTTP/1.1
 
