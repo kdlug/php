@@ -697,6 +697,8 @@ var_dump($result);
 If we don't set an expiration date - Session Cookie will be created. It's valid until the browser won't be closed.
 Session cookies are not the same as cookies used to tracking user session in network applications.
 
+> Read More: https://www.nczonline.net/blog/2009/05/05/http-cookies-explained/
+
 ## Authentication
 Cookies / JWT
 https://auth0.com/blog/cookies-vs-tokens-definitive-guide/
