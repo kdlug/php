@@ -595,6 +595,36 @@ Tokens are usually associated with OAuth (Authorization Framework). JSON Web Tok
 Custom headers are started with the X- prefix, f.ex: X-Cache, X-Varnish in previous examples.
 
 ## Cookies
+HTTP 1.1 protocol is stateless which means that connection between the client and the server is lost once the transaction ends. Server don't store any state about the client session on the server side so it doesn't really know know if 2 requests came from the same browser / client. 
+There are several solutions if we want to track client sessions:
+- cookies
+- server side sessions
+- hidden variables (forms)
+- query string (URI-encoded parameters f.ex. index.php?id=some_unique_id)
+
+Cookie is a small plain text file, stored in a client browser, containing kei=value pairs. This information can be send in next requests to the server and the server can use it to identify clients.
+
+Flow:
+1. Client sends a request without cookie (new session).
+2. Server sends a response with cookie (set-cookie).
+3. Client sends another requests with cookie.
+
+Cookies are stored in HTTP headers:
+#### Response cookie:
+```Set-Cookie: value[; expires=date][; domain=domain][; path=path][; secure]```
+
+Example:
+```
+set-cookie:prov=327db351-a4cb-cf06-69b3-13ec73e49b38; domain=.stackoverflow.com; expires=Fri, 01-Jan-2055 00:00:00 GMT; path=/; HttpOnly
+```
+#### Request cookie
+```Cookie: name1=value1; name2=value2```
+
+Ezample
+```
+cookie:prov=327db351-a4cb-cf06-69b3-13ec73e49b38; _ga=GA1.2.1476171314.1496128198; _gid=GA1.2.1245437519.1496128198; __qca=P0-1644340840-1496128198289
+```
+
 
 ## Authentication
 Cookies / JWT
