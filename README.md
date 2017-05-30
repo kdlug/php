@@ -610,13 +610,24 @@ Flow:
 3. Client sends another requests with cookie.
 
 Cookies are stored in HTTP headers:
-#### Response cookie:
-```Set-Cookie: value[; expires=date][; domain=domain][; path=path][; secure]```
 
+#### Response cookie:
+```Set-Cookie: name=value[; expires=date][; domain=domain][; path=path][; secure]```
+Cookie has 4 basic options:
+- cookie name, 
+- domain, 
+- path, 
+- secure flag 
+Each of the options are separated by a semicolon and space and each specifies rules about when the cookie should be sent back to the server. 
+- Expires option -  indicates when the cookie should no longer be sent to the server and therefore may be deleted by the browser. The value should be in format: Wdy, DD-Mon-YYYY HH:MM:SS GMT
+- Domain - indicates the domain(s) for which the cookie should be sent
+- Path - indicates a URL path that must exist in the requested resource before sending the Cookie header
+- Secure - is just a flag without a value specified. A secure cookie will only be sent to the server for SSL requests via HTTPS protocol. 
 Example:
 ```
 set-cookie:prov=327db351-a4cb-cf06-69b3-13ec73e49b38; domain=.stackoverflow.com; expires=Fri, 01-Jan-2055 00:00:00 GMT; path=/; HttpOnly
 ```
+
 #### Request cookie
 ```Cookie: name1=value1; name2=value2```
 
