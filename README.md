@@ -704,6 +704,98 @@ Cookies / JWT
 https://auth0.com/blog/cookies-vs-tokens-definitive-guide/
 
 ## XML / JSON format
+### JSON
+Java Script Object Notation is a lightweight, language independend data-interchange format.
+Example: 
+```
+{ 
+  "person": { 
+    "name":"John",
+    "surname": "Doe",
+    "age":22, 
+    "city":"Palo Alto",
+    "languages": ["PHP", "Java", "C++"]
+  }
+};
+```
+Summary:
+- data types are not stored in JSON,
+- simply to understand,
+- lightweight (great for slower connections, mobile)
+
+#### Headers for sending JSON content:
+
+Request:
+```
+GET / HTTP/1.1
+Accept: application/json
+```
+Response:
+```
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{"name":"John", "surname": "Doe", "age":22, "city":"Palo Alto", "languages": ["PHP", "Java", "C++"]};
+```
+#### PHP
+**json_encode()** - returns the JSON representation of a value.
+F.ex.
+```php
+json_encode(
+  [
+    "name" => "John", 
+    "Surname" => "Doe"
+  ]
+);
+```
+> Read More: http://php.net/manual/en/function.json-encode.php 
+
+**json_decode()** - decodes a JSON string.
+F.ex.
+```php
+$result = json_decode('{"name" => "John", "Surname" => "Doe"}');
+var_dump($result);
+```
+By default it returns stdClass object. To convert it to the array we have to pass a second argument *true* to the json_decode() function:
+```php
+$result = json_decode('{"name" => "John", "Surname" => "Doe"}', true);
+var_dump($result);
+```
+> Read More: http://php.net/manual/en/function.json-decode.php
+
+### XML
+XML is much more difficult to parse than JSON, but we can additionaly store information about data type, attributes etc.
+Example:
+```php
+<person>
+  <name>John</name> 
+  <surname>Doe</surname>
+  <age>22</age>
+  <city>Palo Alto</city>
+  <languages>
+    <language>PHP</language>
+    <language>Java</language>
+    <language>C++</language>
+  </languages>
+</person>
+```
+
+#### PHP
+In PHP we usually use *SimpleXML* extension for working with XML data. Other possibilities are *DOM* and *XMLReader. XMLWriter, XMLParser* extensions.
+
+**SimpleXML**
+```php
+$languages = ["PHP", "Java", "C++"];
+
+// prepare object
+$xml = new SimpleXMLElement('<languages/>');
+foreach ($languages as $language) {
+  $xml->addChild('language', $language);
+}
+
+// output
+echo $xml->asXML(); 
+```
 ## RPC / SOAP
 ## REST
 ## Error Handling
