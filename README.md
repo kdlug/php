@@ -797,6 +797,89 @@ foreach ($languages as $language) {
 echo $xml->asXML(); 
 ```
 ## RPC / SOAP
+### RPC (Remote Procedure Call)
+API interfaces  usually have one endpoint, so all requests uses one URL adress. Each reauest should contain the name of function to call and it's additional parameters.
+f.ex. Flickr API:
+```
+ https://api.flickr.com/services/rest/?method=flickr.photos.getFavorites&api_key=004a2a979699ede40ed45e56a70b7d11&photo_id=35048309386&format=rest&api_sig=5ee3a19e79a0b716231561a6a5ab3be8
+```
+Example response (XML-RPC):
+```xml
+<?xml version="1.0" encoding="utf-8" ?>
+<rsp stat="ok">
+  <photo id="35048309386" secret="38e2c716d1" server="4283" farm="5" page="1" pages="0" perpage="10" total="0" />
+</rsp>
+```
+Flickr API uses XML-RPC, which means that both requests and responses should be send as XML format. Example Flicr XML request format:
+```xml
+<methodCall>
+	<methodName>flickr.test.echo</methodName>
+	<params>
+		<param>
+			<value>
+				<struct>
+					<member>
+						<name>name</name>
+						<value><string>value</string></value>
+					</member>
+					<member>
+						<name>name2</name>
+						<value><string>value2</string></value>
+					</member>
+				</struct>
+			</value>
+		</param>
+	</params>
+</methodCall>
+```
+### SOAP
+A type of RPC service which use strictly specified XML format for communication. Services in SOAP are described via WSDL files.
+WSDL - Web Service Description Language used  for describing services: location of the service, used data types, methods. parameters and return values. WSDL is optional for SOAP services "SOAP without WSDL".
+> REST & SOAP Testing Tool: https://www.soapui.org/
+
+#### PHP
+Client SOAP example with WSDL
+```
+// new soap client
+$client = new SoapClient('http://www.webservicex.com/globalweather.asmx?wsdl');
+$cities = $client->GetCitiesByCountry(['CountryName' =>"Poland"]);
+var_dump($cities);
+```
+Server SOAP example (Without WSDL)
+```
+include('ExampleServer.php');
+
+$options = ['uri'=>'http://localhost/'];
+
+$server=new SoapServer(null,$options);
+$server->setClass('ExampleServer');
+$server->handle();
+```
+Client SOAP example (without WSDL)
+```
+// because we don't use wsdl we need to inform client where service is
+$options= [
+  'location' =>	'http://localhost/test/soap-server.php',
+  'uri'		   =>	'http://localhost/'
+];
+
+try {
+  $client = new SoapClient(null, $options);
+  $items = $client->getItems();
+} catch (SoapFault $e) {
+  var_dump($e);
+}
+```
+To generate wsdl in PHP we can use *php2wsdl* library https://www.phpclasses.org/package/3509-PHP-Generate-WSDL-from-PHP-classes-code.html.
+```
+$class = "Vendor\\MyClass";
+$serviceURI = "http://www.myservice.com/soap";
+$wsdlGenerator = new PHPClass2WSDL($class, $serviceURI);
+// Generate thw WSDL from the class adding only the public methods that have @soap annotation.
+$wsdlGenerator->generateWSDL(true);
+$wsdlXML = $wsdlGenerator->dump();
+```
+
 ## REST
 ## Error Handling
 ## Debugging
