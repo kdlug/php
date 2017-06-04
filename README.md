@@ -879,8 +879,19 @@ $wsdlGenerator = new PHPClass2WSDL($class, $serviceURI);
 $wsdlGenerator->generateWSDL(true);
 $wsdlXML = $wsdlGenerator->dump();
 ```
+## XML-RPC vs SOAP
+> http://weblog.masukomi.org/2006/11/21/xml-rpc-vs-soap/
 
 ## REST
+## REST vs SOAP
+- SOAP is a protocol. REST is an architectural style.
+- SOAP can't use REST because it is a protocol. REST can use SOAP web services because it is a concept and can use any protocol like HTTP, SOAP.
+- SOAP uses services interfaces to expose the business logic. REST uses URI to expose business logic.
+- SOAP defines standards to be strictly followed. REST does not define too much standards like SOAP.
+- SOAP requires more bandwidth and resource than REST. REST requires less bandwidth and resource than SOAP.
+- SOAP defines its own security. RESTful web services inherits security measures from the underlying transport.
+- SOAP permits XML data format only. REST permits different data format such as Plain text, HTML, XML, JSON etc.
+> Source: https://stackoverflow.com/a/36005953
 ## Error Handling
 ## Debugging
 ## Documentation
