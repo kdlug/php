@@ -909,7 +909,7 @@ REST URLs contains only information about the resource / collection, they are no
 The structure of REST resource representation is not specified in the restful architecture. Usually representations are in JSON or XML format. The proper way to determine the format of the response by the client is using Accept header. Other solution can be using additional URL parameter. 
 
 ### HTTP elements
-Creating
+#### Creating
 Resources are created by sending POST requests to collections. Usually after creating a new resource a status code is received. Response code is usually be sent in a response body, the URL of the new record can be provided in location header. 
 Other status codes:
 200 - OK
@@ -917,7 +917,7 @@ Other status codes:
 400 - Bad Request
 406 - Not Acceptable
 
-Read
+#### Read
 GET method is used. Response codes:
 200 - OK
 302 - Found
@@ -930,7 +930,7 @@ If API has defined request limits, we can use:
 420 - Enhance Your Calm (fex. https://httpstatusdogs.com/420-enhance-your-calm)
 429 - Too Many Requests
 
-Update
+#### Update
 It's a multistage process:
 1. A record should be GET first
 2. Then should be modified
@@ -941,7 +941,7 @@ Response codes:
 200 - OK
 204 - No Content
 
-Delete
+#### Delete
 Delete a record can be done using DELETE method.
 Response codes:
 200 - OK
@@ -950,7 +950,7 @@ Response codes:
 
 > Useful decision diagram for response codes https://i.stack.imgur.com/whhD1.png
 
-Authorization
+#### Authorization
 The simpliest way to autorize is basic auth, where encoded (base64) username:password are sent in Authorization header. Similar, but more secure metod is HTTP Digest. The most recommended way is using OAuth2 authorization framework.
 
 ## REST vs SOAP
