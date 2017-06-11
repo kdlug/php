@@ -962,7 +962,15 @@ The simpliest way to autorize is basic auth, where encoded (base64) username:pas
 - SOAP defines its own security. RESTful web services inherits security measures from the underlying transport.
 - SOAP permits XML data format only. REST permits different data format such as Plain text, HTML, XML, JSON etc.
 > Source: https://stackoverflow.com/a/36005953
-## Error Handling
-## Debugging
+
+## Design Tips
+- Choose representaion types (f.ex. JSON, XML)
+- Set default limit of returned records
+- More detailed information to each record should be returned on demand f.ex. Twitter uses include_entities parameter
+- Set default data format. If Accept header is missing, data should be returned f.ex. in JSON format. 
+- Set pagination default values. If pagination data isn't provided f.ex. first 25 records will be sent.
+- Requests limits
+- Errors should be clean and returned always in the same way. The format of response should be the same as client requested, f.ex. JSON.
+
 ## Documentation
 https://any-api.com/
