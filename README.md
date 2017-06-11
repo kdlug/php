@@ -883,6 +883,76 @@ $wsdlXML = $wsdlGenerator->dump();
 > http://weblog.masukomi.org/2006/11/21/xml-rpc-vs-soap/
 
 ## REST
+REST (REpresentational State Transfer) it's rather methodology, architectural style, set of guidelines than a protocol.
+> Read more http://www.ics.uci.edu/~fielding/pubs/dissertation/rest_arch_style.htm
+It's resource based which means that in API we use resources (things/nouns based instead of actions/verbs like in soap). Resources are identified by URIs.
+
+### Six constraints of restful architecture:
+- Uniform interface
+-- Defines the interface between client and server. It's based on HTTP. We use HTTP verbs (GET, PUT, POST< DELETE), URIs and HTTP response )status, body)
+- Stateless
+Server doesn't store client state. Any session state is held on the client. Each request contains enough context to process the message (Self-descriptive messages)
+- Client-server
+- Cacheable
+Server responses (representations) must be cachable. 
+- Layered system
+Improves scalability.
+- Code on demand
+Server can temporarily extend client by tranfering logic. Logic can be transfered as a representation to the client f.ex. JavaScript snippets.
+
+> Watch http://www.restapitutorial.com/lessons/whatisrest.html
+
+### URLs
+REST URLs contains only information about the resource / collection, they are nouns based. In order to change the representation (f.ex. sorting, filtering) we can use additional parameters in URLf.ex http://api.joind.in/v2.1/events?filter=hot
+
+### Representation
+The structure of REST resource representation is not specified in the restful architecture. Usually representations are in JSON or XML format. The proper way to determine the format of the response by the client is using Accept header. Other solution can be using additional URL parameter. 
+
+### HTTP elements
+Creating
+Resources are created by sending POST requests to collections. Usually after creating a new resource a status code is received. Response code is usually be sent in a response body, the URL of the new record can be provided in location header. 
+Other status codes:
+200 - OK
+201 - Created
+400 - Bad Request
+406 - Not Acceptable
+
+Read
+GET method is used. Response codes:
+200 - OK
+302 - Found
+304 - Not Modified
+If  user should be authorized to get a resource:
+401 - Unauthorized
+403 - Forbidden
+404 - Not Found (more secure)
+If API has defined request limits, we can use:
+420 - Enhance Your Calm (fex. https://httpstatusdogs.com/420-enhance-your-calm)
+429 - Too Many Requests
+
+Update
+It's a multistage process:
+1. A record should be GET first
+2. Then should be modified
+3. At the end should be sent to the original URI using PUT request (whole record should be sent).
+Usually there are added a few extra information to the resource content: Last-Modified or Etag header in order to determine if this resource hasn't been changed in a different way.
+If we need to change only one field in a resource, it's convinient to create sub-resource f.ex. user/1/password. Another approach but not so common is using PATCH method.
+Response codes:
+200 - OK
+204 - No Content
+
+Delete
+Delete a record can be done using DELETE method.
+Response codes:
+200 - OK
+204 - No Content
+404 - Not found
+
+> Useful decision diagram for response codes https://i.stack.imgur.com/whhD1.png
+
+Authorization
+The simpliest way to autorize is basic auth, where encoded (base64) username:password are sent in Authorization header. Similar, but more secure metod is HTTP Digest. The most recommended way is using OAuth2 authorization framework.
+
 ## REST vs SOAP
 - SOAP is a protocol. REST is an architectural style.
 - SOAP can't use REST because it is a protocol. REST can use SOAP web services because it is a concept and can use any protocol like HTTP, SOAP.
